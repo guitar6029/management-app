@@ -17,6 +17,11 @@ export type MarketingItem = {
     client_segment?: string;
 };
 
+export type DepartmentItem = {
+    id: number;
+    name: string;
+}
+
 
 export type BaseItem = {
     id: number;

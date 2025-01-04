@@ -36,7 +36,6 @@ const useMarketing = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
 
     const setSelectedCategoryForMarketing = (category: string) => {
-        console.log("selected category: ", category);
         dispatch({ type: "SELECT_CATEGORY", payload: category });
     }
 

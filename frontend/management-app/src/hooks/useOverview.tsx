@@ -38,7 +38,6 @@ const reducer = (state: State, action: Action): State => {
         case "SET_SALES_DATA":
             return { ...state, salesData: action.payload };
         case "SELECT_TYPE_FOR_SALES":
-            console.log(action.payload);
             return { ...state, defaultSelectedForSales: action.payload };
         case "FILTER_SALES_DATA":
             return { ...state, salesData: action.payload };

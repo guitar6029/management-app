@@ -7,7 +7,7 @@ import useMarketing from "@/hooks/useMarketing";
 import useOverview from "../hooks/useOverview";
 
 const Overview: React.FC = () => {
-    
+
     const { getSelectedDataTypeForSales, setSelectedTypeForSales, getTimeFrames } = useOverview();
     const { state: marketingState, setSelectedCategoryForMarketing, getSelectedCategoryForMarketing } = useMarketing();
     const eventsState = useEvents();
@@ -18,7 +18,7 @@ const Overview: React.FC = () => {
         <div className="min-h-screen p-4 grid grid-cols-2 sm:flex-row gap-4">
             {/* Two columns: left side vertical Sales and Marketing, right side Events */}
             <div className="flex flex-col gap-4">
-                <section className="sm:h-[400px] md:h-[500px] flex flex-col w-1/2 sm:w-full gap-2 bg-[var(--component-base-bg-color)] p-4 rounded-lg">
+                <section className="sm:h-[300px] md:h-[400px] flex flex-col w-1/2 sm:w-full gap-2 bg-[var(--component-base-bg-color)] p-4 rounded-lg">
                     <div className="flex flex-row items-center justify-between">
                         <div className="flex flex-col gap-2">
                             <h3 className="text-base text-white sm:text-xl md:text-2xl font-bold">Sales</h3>
@@ -45,7 +45,7 @@ const Overview: React.FC = () => {
                                 ))}
                             </div>
                         ) : (
-                            <span>No marketing data available for the selected category</span>
+                            <span className="text-base text-white font-semibold">No marketing data available for the selected category</span>
                         )}
                     </div>
                 </section>
@@ -63,7 +63,7 @@ const Overview: React.FC = () => {
                     </div>
                 ) : (
                     <div className="flex flex-row items-center">
-                        <span>No upcoming events</span>
+                        <span className="text-base text-white font-semibold">No upcoming events</span>
                     </div>
                 )}
             </section>

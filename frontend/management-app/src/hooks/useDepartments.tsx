@@ -1,23 +1,24 @@
 import { useReducer, useEffect } from "react";
 import { getDepartments } from "../api/department/department-api";
+import { DepartmentItem } from "@/types/types";
 
 const initialState = {
     departments: []
 }
 
-const reducer = (state, action) => {
+const reducer = (state:any, action:any) => {
     switch (action.type) {
         case 'SET_DEPARTMENTS':
             return { ...state, departments: action.payload }
         default:
-            return state    
+            return state
     }
 }
 
 
 const useDepartments = () => {
 
-    const [ state, dispatch] = useReducer(reducer, initialState) 
+    const [state, dispatch] = useReducer(reducer, initialState)
 
 
     useEffect(() => {
@@ -29,8 +30,7 @@ const useDepartments = () => {
             try {
                 const response = await getDepartments(signal);
                 if (response) {
-                    dispatch(({type: 'SET_DEPARTMENTS', payload: response}))
-                    console.log(response);
+                    dispatch(({ type: 'SET_DEPARTMENTS', payload: response }))
                 }
             } catch (error) {
                 console.log(error);
@@ -46,8 +46,10 @@ const useDepartments = () => {
 
     }, [])
 
-    return state
+    return { state }
 
 }
+
+export const isDepartmentListEmpty = (state: any) => state.departments.length === 0;
 
 export default useDepartments;
