@@ -5,13 +5,15 @@ import { MarketingItem } from "@/types/types";
 const initialState: State = {
     salesData: [],
     marketingData: [],
-    defaultSelectedForSales: "Sales"
+    defaultSelectedForSales: "Sales",
+    period: ["Monthly", "Quarterly", "Yearly"]
 };
 
 type State = {
     salesData: any[];
     marketingData: MarketingItem[];
     defaultSelectedForSales: string;
+    period: string[];
 };
 
 type SetSalesDataAction = {
@@ -48,6 +50,8 @@ const reducer = (state: State, action: Action): State => {
 
 const useOverview = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
+
+    const getTimeFrames = () => state.period;
 
     const filterSalesData = (timeFrame: string) => {
         const today = new Date();
@@ -98,7 +102,7 @@ const useOverview = () => {
     }, []);
 
 
-    return { state, setSelectedTypeForSales: (type: string) => dispatch({ type: "SELECT_TYPE_FOR_SALES", payload: type }), filterSalesData };
+    return { state, getTimeFrames, setSelectedTypeForSales: (type: string) => dispatch({ type: "SELECT_TYPE_FOR_SALES", payload: type }), filterSalesData };
 };
 
 export default useOverview;
