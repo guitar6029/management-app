@@ -1,7 +1,8 @@
 import { Item, EventType, GeneralItem } from '../../types/types';
+import { MarketingItem } from '../../types/types';
 
 type InfoPanelProps = {
-    item: Item;
+    item: Item | MarketingItem;
     category: string;
 };
 
@@ -25,14 +26,25 @@ const InfoPanel: React.FC<InfoPanelProps> = ({ item, category }: InfoPanelProps)
                 <span>{generalItem.description}</span>
             </div>
         );
-    } else {
+    } else if (category === 'marketing') {
+        const marketingItem = item as MarketingItem;  // Explicitly cast to MarketingItem
         return (
-            <div className="flex flex-row items-center gap-2">
-                <span>{item.name}</span>
-                {item.description && <span>{item.description}</span>}
+            <div style={{ gridTemplateColumns: "1fr auto 1fr 1fr" }} className="cursor-pointer rounded-lg grid grid-cols-4 items-center gap-7 hover:bg-[var(--text-link)] transition duration-200 ease-in text-white hover:text-black p-2">
+                <span className="font-semibold truncate">{marketingItem.campaign_name}</span>
+                <span className="font-semibold">{marketingItem.status}</span>
+                <span className="font-semibold truncate">{marketingItem.goals}</span>
+                <span className="font-semibold truncate">{marketingItem.target_audience}</span>
             </div>
         );
-    }
+    } 
+    // else {
+    //     return (
+    //         <div className="flex flex-row items-center gap-2">
+    //             <span>{item.name}</span>
+    //             {item.description && <span>{item.description}</span>}
+    //         </div>
+    //     );
+    // }
 };
 
 export default InfoPanel;

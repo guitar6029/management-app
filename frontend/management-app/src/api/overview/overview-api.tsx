@@ -10,13 +10,3 @@ export const getSalesData = async (signal: AbortSignal) => {
         console.log(error);
     }
 }
-
-
-export const getMarketingData = async (signal: AbortSignal) => {
-    try {
-        const response = await axios.get(`${URI}/marketing`, { signal });
-        return response.data;
-    } catch (error) {
-        console.log(error);
-    }
-}

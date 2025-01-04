@@ -1,5 +1,5 @@
 import { useEffect, useReducer } from "react";
-import { getMarketingData, getSalesData } from "../api/overview/overview-api";
+import { getSalesData } from "../api/overview/overview-api";
 import { MarketingItem } from "@/types/types";
 
 const initialState: State = {
@@ -19,10 +19,6 @@ type SetSalesDataAction = {
     payload: any[];
 };
 
-type SetMarketingDataAction = {
-    type: "SET_MARKETING_DATA";
-    payload: any[];
-};
 
 type SelectTypeForSalesAction = {
     type: "SELECT_TYPE_FOR_SALES";
@@ -34,14 +30,12 @@ type FilterSalesDataAction = {
     payload: any[];
 };
 
-type Action = SetSalesDataAction | SetMarketingDataAction | SelectTypeForSalesAction | FilterSalesDataAction;
+type Action = SetSalesDataAction | SelectTypeForSalesAction | FilterSalesDataAction;
 
 const reducer = (state: State, action: Action): State => {
     switch (action.type) {
         case "SET_SALES_DATA":
             return { ...state, salesData: action.payload };
-        case "SET_MARKETING_DATA":
-            return { ...state, marketingData: action.payload };
         case "SELECT_TYPE_FOR_SALES":
             console.log(action.payload);
             return { ...state, defaultSelectedForSales: action.payload };
@@ -58,7 +52,7 @@ const useOverview = () => {
     const filterSalesData = (timeFrame: string) => {
         const today = new Date();
         let startDate;
-        
+
         switch (timeFrame) {
             case "monthly":
                 startDate = new Date(today.getFullYear(), today.getMonth() - 1, today.getDate());
@@ -103,26 +97,6 @@ const useOverview = () => {
         };
     }, []);
 
-    useEffect(() => {
-        const controller = new AbortController();
-        const signal = controller.signal;
-
-        const getMarketingDataHelper = async () => {
-            try {
-                const response = await getMarketingData(signal);
-                if (response) {
-                    dispatch({ type: "SET_MARKETING_DATA", payload: response });
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getMarketingDataHelper();
-
-        return () => {
-            controller.abort();
-        };
-    }, []);
 
     return { state, setSelectedTypeForSales: (type: string) => dispatch({ type: "SELECT_TYPE_FOR_SALES", payload: type }), filterSalesData };
 };

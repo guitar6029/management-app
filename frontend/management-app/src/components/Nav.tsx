@@ -1,4 +1,3 @@
-// import { useEffect, useReducer} from "react";
 import Sliders from "./Sliders";
 
 
