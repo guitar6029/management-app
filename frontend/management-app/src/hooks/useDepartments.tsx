@@ -30,6 +30,7 @@ const useDepartments = () => {
                 const response = await getDepartments(signal);
                 if (response) {
                     dispatch(({type: 'SET_DEPARTMENTS', payload: response}))
+                    console.log(response);
                 }
             } catch (error) {
                 console.log(error);

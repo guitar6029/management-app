@@ -1,16 +1,16 @@
-import psycopg
+import asyncpg
 from dotenv import load_dotenv
 import os
 
 # Load environment variables from .env file
 load_dotenv()
 
-def connect_db():
+async def connect_db():
     try:
-        conn = psycopg.connect(
-            dbname=os.getenv('DB_NAME'),
+        conn = await asyncpg.connect(
             user=os.getenv('DB_USER'),
             password=os.getenv('DB_PASSWORD'),
+            database=os.getenv('DB_NAME'),
             host=os.getenv('DB_HOST'),
             port=os.getenv('DB_PORT')
         )
@@ -19,6 +19,6 @@ def connect_db():
         print(f"Error connecting to database: {e}")
         return None
 
-def close_db_connection(conn):
+async def close_db_connection(conn):
     if conn:
-        conn.close()
+        await conn.close()
