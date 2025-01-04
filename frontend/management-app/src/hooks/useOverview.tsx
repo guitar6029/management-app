@@ -21,7 +21,6 @@ type SetSalesDataAction = {
     payload: any[];
 };
 
-
 type SelectTypeForSalesAction = {
     type: "SELECT_TYPE_FOR_SALES";
     payload: string;
@@ -53,6 +52,24 @@ const useOverview = () => {
 
     const getTimeFrames = () => state.period;
 
+    const setSelectedTypeForSales = (type: string) => { 
+        dispatch({ type: "SELECT_TYPE_FOR_SALES", payload: type });
+        filterSalesData(type);  // Automatically filter sales data when type is selected
+    }
+
+    const getSelectedDataTypeForSales = () => {
+        switch (state.defaultSelectedForSales.toLocaleLowerCase()) {
+            case 'monthly':
+                return filterSalesData('monthly');
+            case 'quarterly':
+                return filterSalesData('quarterly');
+            case 'yearly':
+                return filterSalesData('yearly');
+            default:
+                return state.salesData;
+        }
+    }
+
     const filterSalesData = (timeFrame: string) => {
         const today = new Date();
         let startDate;
@@ -72,12 +89,17 @@ const useOverview = () => {
                 break;
         }
 
-        const filteredData = state.salesData.filter((item: { date_of_sale: string; }) => {
+        const filteredData = state.salesData.map((item: { date_of_sale: string; amount: number; id: number; }) => {
+            const saleDate = new Date(item.date_of_sale);
+            const daysDifference = Math.floor((today.getTime() - saleDate.getTime()) / (1000 * 60 * 60 * 24));
+            const updatedSaleDate = new Date(today.getFullYear(), today.getMonth(), today.getDate() - daysDifference).toISOString().split('T')[0];
+            return { ...item, date_of_sale: updatedSaleDate };
+        }).filter((item: { date_of_sale: string; }) => {
             const saleDate = new Date(item.date_of_sale);
             return saleDate >= startDate && saleDate <= today;
         });
 
-        dispatch({ type: "FILTER_SALES_DATA", payload: filteredData.length > 0 ? filteredData : [] });
+        return filteredData.length > 0 ? filteredData : [];
     };
 
     useEffect(() => {
@@ -101,8 +123,7 @@ const useOverview = () => {
         };
     }, []);
 
-
-    return { state, getTimeFrames, setSelectedTypeForSales: (type: string) => dispatch({ type: "SELECT_TYPE_FOR_SALES", payload: type }), filterSalesData };
+    return { state, getTimeFrames, setSelectedTypeForSales, getSelectedDataTypeForSales };
 };
 
 export default useOverview;

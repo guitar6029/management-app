@@ -7,7 +7,8 @@ import useMarketing from "@/hooks/useMarketing";
 import useOverview from "../hooks/useOverview";
 
 const Overview: React.FC = () => {
-    const { state: overviewState, setSelectedTypeForSales, getTimeFrames } = useOverview();
+    
+    const { getSelectedDataTypeForSales, setSelectedTypeForSales, getTimeFrames } = useOverview();
     const { state: marketingState, setSelectedCategoryForMarketing, getSelectedCategoryForMarketing } = useMarketing();
     const eventsState = useEvents();
 
@@ -25,7 +26,7 @@ const Overview: React.FC = () => {
                         </div>
                         <Sliders sliderItems={getTimeFrames()} onClickEvent={(eventType: string) => setSelectedTypeForSales(eventType)} />
                     </div>
-                    <BarChart dataItems={overviewState.salesData} />
+                    <BarChart dataItems={getSelectedDataTypeForSales()} />
                 </section>
 
                 <section className="flex flex-col w-1/2 sm:w-full gap-2 bg-[var(--component-base-bg-color)] p-4 rounded-lg">
@@ -38,7 +39,7 @@ const Overview: React.FC = () => {
                     </div>
                     <div className="flex flex-col justify-between">
                         {filteredMarketingData.length > 0 ? (
-                            <div className="flex flex-col min-h-screen overflow-y-auto gap-4">
+                            <div className="flex flex-col overflow-y-auto gap-4">
                                 {filteredMarketingData.map((event: any) => (
                                     <InfoPanel key={event.id} item={event} category="marketing" />
                                 ))}
