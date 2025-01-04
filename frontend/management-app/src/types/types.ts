@@ -1,6 +1,3 @@
-// src/types/types.ts
-
-
 export type MarketingItem = {
     id: number;
     campaign_name: string;
@@ -39,7 +36,6 @@ export type GeneralItem = BaseItem & {
     date: Date;
 };
 
-// Add more types as needed
 
 export type Item = EventType | GeneralItem;
 

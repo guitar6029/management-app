@@ -95,7 +95,7 @@ const BarChartComponent: React.FC<BarChartProps> = ({ dataItems, chartTitle, cha
                         />
                         <ChartTooltip
                             cursor={false}
-                            content={<ChartTooltipContent hideLabel />}
+                            content={<ChartTooltipContent className="sm:w-[250px] text-white text-xl font-semibold capitalize" hideLabel />}
                         />
                         {/* <ChartTooltip
                             content={
