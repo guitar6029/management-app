@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --main-bg-color: #000000;
+  --component-bg-color: #161618;
+  --component-primary-color: ##99999d;
+  --component-base-bg-color: #161618;
+  --text-link: #a7a7ab;
+  --primary-bar-item-color: #c7abef;
+  --hover-bar-item-color: #522295;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  background-color: var(--main-bg-color);
+  font-family: "Inter", serif;
+}
+
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}
+
+
+/* Global scrollbar styles */
+::-webkit-scrollbar {
+  width: 8px;
+  /* Width of the scrollbar */
+  height: 8px;
+  /* Height of the scrollbar for horizontal scrolling */
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(4, 4, 4, 0.5);
+  /* Color of the scrollbar thumb */
+  border-radius: 4px;
+  /* Rounded corners for a modern look */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(3, 3, 3, 0.7);
+  /* Darker thumb when hovered */
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(200, 200, 200, 0.2);
+  /* Background color of the scrollbar track */
+  border-radius: 4px;
+  /* Rounded corners */
+}
+
+/* Add transition for smooth hover effect */
+::-webkit-scrollbar-thumb {
+  transition: background 0.3s ease;
+}
+
+
+@layer base {
+  :root {
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
