@@ -102,26 +102,26 @@ const useOverview = () => {
         };
     }, []);
 
-    useEffect(() => {
-        const controller = new AbortController();
-        const signal = controller.signal;
+    // useEffect(() => {
+    //     const controller = new AbortController();
+    //     const signal = controller.signal;
 
-        const getMarketingDataHelper = async () => {
-            try {
-                const response = await getMarketingData(signal);
-                if (response) {
-                    dispatch({ type: "SET_MARKETING_DATA", payload: response });
-                }
-            } catch (error) {
-                console.log(error);
-            }
-        };
-        getMarketingDataHelper();
+    //     const getMarketingDataHelper = async () => {
+    //         try {
+    //             const response = await getMarketingData(signal);
+    //             if (response) {
+    //                 dispatch({ type: "SET_MARKETING_DATA", payload: response });
+    //             }
+    //         } catch (error) {
+    //             console.log(error);
+    //         }
+    //     };
+    //     getMarketingDataHelper();
 
-        return () => {
-            controller.abort();
-        };
-    }, []);
+    //     return () => {
+    //         controller.abort();
+    //     };
+    // }, []);
 
     return { state, setSelectedTypeForSales: (type: string) => dispatch({ type: "SELECT_TYPE_FOR_SALES", payload: type }), filterSalesData };
 };

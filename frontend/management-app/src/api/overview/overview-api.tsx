@@ -1,6 +1,5 @@
 import axios from "axios";
-
-const URI = "http://127.0.0.1:5000/api";
+import { URI } from "../uri";
 
 export const getSalesData = async (signal: AbortSignal) => {
     try {
