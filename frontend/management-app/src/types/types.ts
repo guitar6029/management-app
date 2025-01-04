@@ -1,0 +1,48 @@
+// src/types/types.ts
+
+
+export type MarketingItem = {
+    id: number;
+    campaign_name: string;
+    start_date: Date;
+    end_date: Date;
+    budget: number;
+    target_audience?: string;
+    channels?: string;
+    goals?: string;
+    performance_metrics?: string;
+    status: string;
+    created_at?: Date;
+    investment_focus?: string;
+    technology_used?: string;
+    regulatory_compliance?: string;
+    risk_management_strategy?: string;
+    client_segment?: string;
+};
+
+
+export type BaseItem = {
+    id: number;
+    name: string;
+    description?: string;
+};
+
+export type EventType = BaseItem & {
+    mandatory?: boolean;
+    category: 'events';
+    date_of_event: Date;
+    event_info: string;
+};
+
+export type GeneralItem = BaseItem & {
+    category: 'general';
+    date: Date;
+};
+
+// Add more types as needed
+
+export type Item = EventType | GeneralItem;
+
+export const isEventType = (item: Item): item is EventType => {
+    return 'date_of_event' in item && 'event_info' in item;
+};

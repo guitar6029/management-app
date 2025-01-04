@@ -8,7 +8,7 @@ const initialState: State = {
 type Event = {
     id: number,
     description: string,
-    date_of_event: string,
+    date_of_event: Date,
     mandatory: boolean,
     event_info: string,
 }
@@ -45,7 +45,9 @@ const useEvents = () => {
             try {
                 const response = await getEvents(signal);
                 if (response) {
-                    dispatch({ type: "SET_EVENTS", payload: response })
+                    // Parse dates as Date objects 
+                    const eventsWithParsedDates = response.map((event: Event) => ({ ...event, date_of_event: new Date(event.date_of_event) }));
+                    dispatch({ type: "SET_EVENTS", payload: eventsWithParsedDates });
                 }
             } catch (error) {
                 console.log(error);
