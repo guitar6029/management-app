@@ -1,16 +1,21 @@
 import React, { useReducer, useState } from "react";
+import { Trash2 } from 'lucide-react';
 
 const initialState = {
-    brainStorm: ['Do something 1', 'Do Something 2'],
-    planned: ['Planned 1', 'Planned 2'],
-    current: ['Current 1', 'Current 2'],
-    completed: ['Completed 1', 'Completed 2'],
+    brainStorm: ['Plan Meeting', 'Plan Project', 'Plan Task'],
+    planned: ['Review PR', 'Schedule Meeting'],
+    current: ['Talk with team', 'Focus on project'],
+    completed: ['Push to production', 'Talk with Ui/UX team'],
     editingTask: null
 };
 
 const reducer = (state: any, action: any) => {
     switch (action.type) {
-        case 'MOVE_TASK':
+        case 'DELETE_TASK': {
+            const { column, task } = action.payload;
+            return { ...state, [column]: state[column].filter((item: string) => item !== task) };
+        }
+        case 'MOVE_TASK': {
             const { from, to, task } = action.payload;
             if (from === to) {
                 return state;
@@ -20,21 +25,24 @@ const reducer = (state: any, action: any) => {
                 [from]: state[from].filter((item: string) => item !== task),
                 [to]: [...state[to], task]
             };
+        }
         case 'ADD_TASK':
             return { ...state, brainStorm: [...state.brainStorm, action.payload] };
         case 'START_EDITING':
             return { ...state, editingTask: { column: action.payload.column, task: action.payload.task } };
-        case 'SAVE_EDIT':
+        case 'SAVE_EDIT': {
             const { column, oldTask, newTask } = action.payload;
             return {
                 ...state,
                 [column]: state[column].map((task: string) => task === oldTask ? newTask : task),
                 editingTask: null
             };
+        }
         default:
             return state;
     }
 };
+
 
 const TaskManager = () => {
     const [state, dispatch] = useReducer(reducer, initialState);
@@ -91,6 +99,7 @@ const TaskManager = () => {
                 </div>
             </div>
 
+
             {['brainStorm', 'planned', 'current', 'completed'].map((column) => (
                 <div
                     key={column}
@@ -98,9 +107,14 @@ const TaskManager = () => {
                     onDrop={(e) => handleDrop(e, column)}
                     className="col-span-1 sm:col-span-4 md:col-span-4 lg:col-span-1 xl:col-span-1 flex flex-col sm:flex-row md:flex-row lg:flex-col xl:flex-col gap-4 h-[400px] sm:h-auto overflow-y-auto"
                 >
-                    <div className="flex sm:w-[200px] ">
+                    <div className="flex justify-between md:gap-4 items-center sm:w-[170px]  sm:flex-col sm:items-start sm:justify-start lg:flex-row md:justify-between md:items-center">
                         <span className="text-white font-bold capitalize text-2xl">{column}</span>
+                        <div className="flex flex-row gap-2">
+                            <span className="text-white font-bold">Total </span>
+                            <span className="flex items-center justify-center text-black w-[25px] h-[25px] bg-white p-2 rounded-full font-bold text-lg">{state[column].length}</span>
+                        </div>
                     </div>
+
                     {state[column].map((task: string, index: number) => (
                         <div
                             key={index}
@@ -120,7 +134,11 @@ const TaskManager = () => {
                                     autoFocus
                                 />
                             ) : (
-                                <span>{task}</span>
+                                
+                                <div className="flex min-h-full flex-col justify-between">
+                                    <span>{task}</span>
+                                    <Trash2 onClick={() => dispatch({ type: 'DELETE_TASK', payload: { column, task } })} size={40} className="cursor-pointer p-2 hover:bg-white rounded-full transition duration-200 ease-in hover:fill-black " />
+                                </div>
                             )}
                         </div>
                     ))}
