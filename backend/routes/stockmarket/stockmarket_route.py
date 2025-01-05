@@ -35,7 +35,6 @@ async def get_list_currencies():
         async with session.get(url, params=params) as response:
             if response.status == 200:
                 data = await response.json()
-                print("data", data)
                 return data['data']  # Adjust based on the structure of the API response
             else:
                 return []
