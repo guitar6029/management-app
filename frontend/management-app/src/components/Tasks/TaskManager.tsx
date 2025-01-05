@@ -41,14 +41,14 @@ const TaskManager = () => {
     const [newTaskText, setNewTaskText] = useState("");
 
     const styleTaskContainer = {
-        border: '1px solid var(--secondary-text-color)',
+        border: '.5px solid var(--secondary-text-color)',
         borderRadius: '5px',
         padding: '10px',
         margin: '5px',
         width: '200px',
         height: '200px',
         color: 'white',
-        boxShadow: '0 2px 6px #dcd'
+        boxShadow: '0 7px 7px var(--card-shadow)',
     };
 
     const handleDragStart = (e: React.DragEvent<HTMLDivElement>, task: string, from: string) => {
@@ -80,22 +80,23 @@ const TaskManager = () => {
     return (
         <div className="grid grid-cols-4 gap-10 bg-[var(--component-base-bg-color)] rounded-lg p-4">
             <div className="col-span-4">
-                <h1 className="text-white font-bold text-2xl">Task Manager</h1>
+                <div className="flex flex-row justify-between">
+                    <h1 className="text-white font-bold text-2xl">Task Manager</h1>
+                    <button
+                        className="w-[200px] text-[var(--primary-text-color)] font-semibold bg-white rounded-lg text-xl p-2"
+                        onClick={() => dispatch({ type: 'ADD_TASK', payload: `Task ${state.brainStorm.length + 1}` })}
+                    >
+                        + Add Task
+                    </button>
+                </div>
             </div>
-            <div className="col-span-4">
-                <button
-                    className="w-[200px] text-[var(--primary-text-color)] font-semibold bg-white rounded-lg text-xl p-2"
-                    onClick={() => dispatch({ type: 'ADD_TASK', payload: `Task ${state.brainStorm.length + 1}` })}
-                >
-                    + Add Task
-                </button>
-            </div>
+
             {['brainStorm', 'planned', 'current', 'completed'].map((column) => (
                 <div
                     key={column}
                     onDragOver={handleDragOver}
                     onDrop={(e) => handleDrop(e, column)}
-                    className="flex flex-col gap-4 border-r border-[var(--secondary-text-color)] h-[400px] sm:h-auto  overflow-y-scroll"
+                    className="flex flex-col gap-4 h-[400px] sm:h-auto  overflow-y-auto"
                 >
                     <div className="flex justify-center items-center">
                         <span className="text-white font-bold capitalize text-2xl">{column}</span>
@@ -107,6 +108,7 @@ const TaskManager = () => {
                             onDragStart={(e) => handleDragStart(e, task, column)}
                             style={styleTaskContainer}
                             onClick={() => handleTaskClick(column, task)}
+                            className="cursor-pointer hover:scale-105 transition duration-200 ease-out"
                         >
                             {state.editingTask && state.editingTask.column === column && state.editingTask.task === task ? (
                                 <input

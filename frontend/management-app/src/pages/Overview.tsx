@@ -5,7 +5,7 @@ import Sliders from "@/components/Sliders";
 import useEvents from "@/hooks/useEvents";
 import useMarketing from "@/hooks/useMarketing";
 import useOverview from "../hooks/useOverview";
-import TaskManager from "@/components/Tasks/TaskManager";
+
 const Overview: React.FC = () => {
 
     const { getSelectedDataTypeForSales, setSelectedTypeForSales, getTimeFrames } = useOverview();
@@ -68,9 +68,7 @@ const Overview: React.FC = () => {
                 )}
             </section>
 
-            <section className="sm:col-span-2">
-                <TaskManager />
-            </section>
+           
         </div>
     );
 }
