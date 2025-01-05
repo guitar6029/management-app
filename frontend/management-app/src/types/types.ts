@@ -29,15 +29,15 @@ export type DepartmentCategory =
     | "Operations"
     | "Administration"
 
-    export  type Employee = {
-        id: number
-        name: string,
-        email: string,
-        department_id: number,
-        hire_date: Date,
-        position: string
+export type Employee = {
+    id: number
+    name: string,
+    email: string,
+    department_id: number,
+    hire_date: Date,
+    position: string
 
-    }
+}
 
 
 export type DepartmentItem = {

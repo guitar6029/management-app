@@ -30,7 +30,7 @@ const Navbar = () => {
                 <h2 className="text-white font-extrabold">Apex Business Group</h2>
                 <Sliders sliderItems={SLIDER_ITEMS} onClickEvent={(eventType:string) => handleViewChange(eventType)} />
                 <div>
-                    <span className="text-white">Logout</span>
+                    <span className="text-white">Account</span>
                 </div>
             </nav>
         </header>

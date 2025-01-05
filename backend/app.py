@@ -5,6 +5,7 @@ from routes.employees.employee_route import bp as employees_bp
 from routes.sales.sale_route import bp as sales_bp
 from routes.events.event_route import bp as events_bp
 from routes.marketing.marketing_route import bp as marketing_bp
+from routes.stockmarket import stockmarket_bp
 import asyncio
 import hypercorn.asyncio
 import hypercorn.config
@@ -20,6 +21,8 @@ app.register_blueprint(employees_bp, url_prefix='/api')
 app.register_blueprint(sales_bp, url_prefix='/api')
 app.register_blueprint(events_bp, url_prefix='/api')
 app.register_blueprint(marketing_bp, url_prefix='/api')
+app.register_blueprint(stockmarket_bp, url_prefix='/api')
+
 
 @app.route('/')
 def hello_world():
