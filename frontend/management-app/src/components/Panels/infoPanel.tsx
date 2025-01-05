@@ -1,13 +1,14 @@
-import { Item, EventType, GeneralItem, DepartmentItem } from '../../types/types';
+import { Item, EventType, GeneralItem, DepartmentItem , Employee} from '../../types/types';
 import { MarketingItem } from '../../types/types';
 
 type InfoPanelProps = {
-    item: Item | MarketingItem | DepartmentItem;
+    item: Item | MarketingItem | DepartmentItem | Employee;
     category: string;
+    currentItem?: DepartmentItem;
     onClick?: (item: Item | MarketingItem | DepartmentItem) => void;
 };
 
-const InfoPanel: React.FC<InfoPanelProps> = ({ item, category, onClick }: InfoPanelProps) => {
+const InfoPanel: React.FC<InfoPanelProps> = ({ item, category, onClick, currentItem }: InfoPanelProps) => {
     if (category === 'events') {
         const eventItem = item as EventType;  // Explicitly cast to EventType
         return (
@@ -39,11 +40,20 @@ const InfoPanel: React.FC<InfoPanelProps> = ({ item, category, onClick }: InfoPa
         );
     } else if (category === 'department') {
         const departmentItem = item as DepartmentItem;  // Explicitly cast to Department
+
         return (
-            <div onClick={() => onClick && onClick(item)} style={{ gridTemplateColumns: "1fr" }} className="cursor-pointer rounded-lg grid grid-cols-4 items-center gap-7 hover:bg-[var(--text-link)] transition duration-200 ease-in text-white hover:text-black p-2">
+            <div onClick={() => onClick && onClick(item)} style={{ gridTemplateColumns: "1fr" }} className={`${currentItem && currentItem === departmentItem.id ? "bg-[var(--primary-bar-item-color)] text-black" : ""}  cursor-pointer rounded-lg grid grid-cols-4 items-center gap-7  hover:bg-[var(--text-link)] transition duration-200 ease-in text-white hover:text-black p-2`} >
                 <span className="font-semibold">{departmentItem.name}</span>
             </div>
         )
+    } else if (category === 'employees') {
+        const employeeItem = item as Employee;  // Explicitly cast to EventType
+        return (
+            <div style={{ gridTemplateColumns: "1fr 1fr" }} onClick={() => onClick && onClick(item)} className="grid grid-cols-4 items-center">
+                <span className="font-semibold text-white">{employeeItem.name}</span>
+                <span className="font-semibold text-white ">{employeeItem.position}</span>
+            </div>
+        );
     }
 
 };

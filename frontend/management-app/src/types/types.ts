@@ -17,9 +17,32 @@ export type MarketingItem = {
     client_segment?: string;
 };
 
+export type DepartmentCategory =
+    "HR"
+    | "Data"
+    | "Development"
+    | "Sales"
+    | "Marketing"
+    | "Finance"
+    | "Customer Support"
+    | "IT"
+    | "Operations"
+    | "Administration"
+
+    export  type Employee = {
+        id: number
+        name: string,
+        email: string,
+        department_id: number,
+        hire_date: Date,
+        position: string
+
+    }
+
+
 export type DepartmentItem = {
     id: number;
-    name: string;
+    name: DepartmentCategory;
 }
 
 
