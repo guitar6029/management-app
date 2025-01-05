@@ -96,9 +96,9 @@ const TaskManager = () => {
                     key={column}
                     onDragOver={handleDragOver}
                     onDrop={(e) => handleDrop(e, column)}
-                    className="flex flex-col gap-4 h-[400px] sm:h-auto  overflow-y-auto"
+                    className="col-span-1 sm:col-span-4 md:col-span-4 lg:col-span-1 xl:col-span-1 flex flex-col sm:flex-row md:flex-row lg:flex-col xl:flex-col gap-4 h-[400px] sm:h-auto overflow-y-auto"
                 >
-                    <div className="flex justify-center items-center">
+                    <div className="flex sm:w-[200px] ">
                         <span className="text-white font-bold capitalize text-2xl">{column}</span>
                     </div>
                     {state[column].map((task: string, index: number) => (
