@@ -28,7 +28,7 @@ const Overview: React.FC = () => {
                 </div>
                 <BarChart dataItems={getSelectedDataTypeForSales()} />
             </section>
-            
+
             <section className="flex flex-col gap-2 bg-[var(--component-base-bg-color)] p-4 rounded-lg">
                 <div className="flex flex-row items-center justify-between">
                     <div className="flex flex-col gap-2">
@@ -56,7 +56,7 @@ const Overview: React.FC = () => {
                     <h3 className="text-base text-white sm:text-xl md:text-2xl font-bold">Events</h3>
                 </div>
                 {eventsState.events && eventsState.events.length > 0 ? (
-                    <div className="flex flex-col h-[400px] overflow-y-auto gap-4 items-center">
+                    <div  className="flex flex-col h-[400px] overflow-y-auto gap-4">
                         {eventsState.events.map((event: any) => (
                             <InfoPanel key={event.id} item={event} category="events" />
                         ))}

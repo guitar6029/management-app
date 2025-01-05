@@ -95,7 +95,7 @@ const TaskManager = () => {
                     key={column}
                     onDragOver={handleDragOver}
                     onDrop={(e) => handleDrop(e, column)}
-                    className="flex flex-col gap-4 border-r border-[var(--secondary-text-color)] h-[400px] overflow-y-scroll"
+                    className="flex flex-col gap-4 border-r border-[var(--secondary-text-color)] h-[400px] sm:h-auto  overflow-y-scroll"
                 >
                     <div className="flex justify-center items-center">
                         <span className="text-white font-bold capitalize text-2xl">{column}</span>

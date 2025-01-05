@@ -12,7 +12,7 @@ const InfoPanel: React.FC<InfoPanelProps> = ({ item, category, onClick, currentI
     if (category === 'events') {
         const eventItem = item as EventType;  // Explicitly cast to EventType
         return (
-            <div onClick={() => onClick && onClick(item)} className="cursor-pointer rounded-lg grid grid-cols-4 items-center gap-7 hover:bg-[var(--text-link)] transition duration-200 ease-in text-white hover:text-black p-2">
+            <div onClick={() => onClick && onClick(item)} style={{ gridTemplateColumns: "1fr 1fr 1fr 1fr" }} className="cursor-pointer rounded-lg grid grid-cols-4 gap-7 hover:bg-[var(--text-link)] transition duration-200 ease-in text-white hover:text-black p-2">
                 <span className="font-semibold">{eventItem.date_of_event.toLocaleDateString()}</span>
                 <span className="font-semibold truncate">{eventItem.description}</span>
                 <span className="font-semibold">{eventItem.mandatory ? 'Mandatory' : 'Optional'}</span>
